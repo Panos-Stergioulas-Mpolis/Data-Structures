@@ -45,16 +45,18 @@ class LinkedList{
     // Print the list
     PrintList(){
         if(this.size === 0){
-            console.log("The lis is empty");
+            console.log("The list is empty");
         }
         else if(this.size === 1){
-            console.log(this.head.value);
+            console.log(`index 0: ${this.head.value}`);
         }
         else{
+            let i = 0;
             let trav = this.head;
             while(trav !== null){
-                console.log(trav.value);
+                console.log(`index ${i}: ${trav.value}`);
                 trav = trav.next;
+                i++;
             };
         }
     }
@@ -94,16 +96,68 @@ class LinkedList{
         }
         
     }
+
+    // Insert at index (head = 0)
+    InsertAt(index, data){
+        if(index < 0 || index > this.size){
+            console.log("Not valid index.")
+        }
+        else if(index === 0){
+            this.InsertFirst(data);
+        }
+        else if(index === this.size){
+            this.InsertLast(data);
+        }
+        else{
+            let trav = this.head;
+            
+            for(let i = 0; i < this.size; i++){
+                if((i+1) === index){
+                    let node = new Node(data, trav.next)
+                    trav.next = node;
+                    this.size++;
+                    break;
+                }
+                trav = trav.next;
+            }
+        }
+    }
+
+    // Remove at index (head = 0)
+    RemoveAt(index){
+        if(index < 0 || index > this.size - 1){
+            console.log("Not valid index.")
+        }
+        else if(index === 0){
+            this.RemoveFirst();
+        }
+        else if(index === this.size - 1){
+            this.RemoveLast();
+        }
+        else{
+            let trav1 = this.head;
+            let trav2 = trav1.next;
+            
+            for(let i = 0; i < this.size - 1; i++){
+                if((i+1) === index){
+                    trav1.next = trav2.next;
+                    this.size--;
+                    trav2 = null;
+                    break;
+                }
+                trav1 = trav2;
+                trav2 = trav1.next;
+            }
+        }
+    }
+
+    // Removes all the nodes of the list
+    Clear(){
+        this.head = this.tail = null;
+        this.size = 0;
+    }
 }
 
 const ll = new LinkedList();
-ll.InsertFirst(100);
-ll.InsertLast(200);
-ll.InsertLast(300);
-ll.RemoveLast();
-ll.RemoveLast();
-ll.RemoveLast();
-ll.InsertLast(300);
-ll.RemoveFirst();
 ll.PrintList();
-console.log(ll);
+console.log(ll)
