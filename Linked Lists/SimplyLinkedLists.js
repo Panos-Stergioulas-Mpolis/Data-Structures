@@ -48,13 +48,13 @@ class LinkedList{
             console.log("The list is empty");
         }
         else if(this.size === 1){
-            console.log(`index 0: ${this.head.value}`);
+            console.log(`index 0: ${this.head.value} / next: ${this.head.next}`);
         }
         else{
             let i = 0;
             let trav = this.head;
             while(trav !== null){
-                console.log(`index ${i}: ${trav.value}`);
+                console.log(`index ${i}: ${trav.value} / next:${trav.next === null?"null":trav.next.value}`);
                 trav = trav.next;
                 i++;
             };
@@ -160,4 +160,4 @@ class LinkedList{
 
 const ll = new LinkedList();
 ll.PrintList();
-console.log(ll)
+console.log(ll);

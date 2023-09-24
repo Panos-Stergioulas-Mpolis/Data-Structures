@@ -50,13 +50,13 @@ class DoubleLinkedList{
             console.log("The list is empty");
         }
         else if(this.size === 1){
-            console.log(`index 0: ${this.head.value}`);
+            console.log(`index 0: ${this.head.value} / prev: ${this.head.prev} / next: ${this.head.next}`);
         }
         else{
             let i = 0;
             let trav = this.head;
             while(trav !== null){
-                console.log(`index ${i}: ${trav.value}`);
+                console.log(`index ${i}: ${trav.value} / prev: ${trav.prev === null?"null":trav.prev.value} / next:${trav.next === null?"null":trav.next.value}`);
                 trav = trav.next;
                 i++;
             };
@@ -97,12 +97,55 @@ class DoubleLinkedList{
 
     // Insert at index (head = 0)
     InsertAt(index, data){
-        
+        if(index < 0 || index > this.size){
+            console.log("Not valid index.")
+        }
+        else if(index === 0){
+            this.InsertFirst(data);
+        }
+        else if(index === this.size){
+            this.InsertLast(data);
+            console.log("hi");
+        }
+        else{
+            let trav = this.head;
+            for(let i = 0; i < this.size; i++){
+                if((i+1) === index){
+                    let node = new Node(data, trav.next, trav);
+                    trav.next = node;
+                    node.next.prev = node;
+                    this.size++;
+                    break;
+                }
+                trav = trav.next;
+            }
+        }
     }
 
     // Remove at index (head = 0)
     RemoveAt(index){
-        
+        if(index < 0 || index > this.size - 1){
+            console.log("Not valid index.")
+        }
+        else if(index === 0){
+            this.RemoveFirst();
+        }
+        else if(index === this.size - 1){
+            this.RemoveLast();
+        }
+        else{
+            let trav = this.head;
+            for(let i = 0; i < this.size; i++){
+                if((i) === index){
+                    trav.prev.next = trav.next;
+                    trav.next.prev = trav.prev;
+                    trav = null;
+                    this.size--;
+                    break;
+                }
+                trav = trav.next;
+            }
+        }
     }
 
     // Removes all the nodes of the list
@@ -113,12 +156,5 @@ class DoubleLinkedList{
 }
 
 const ll = new DoubleLinkedList();
-ll.InsertFirst(0);
-ll.InsertFirst(1);
-ll.InsertFirst(2);
-ll.InsertLast(3);
-ll.InsertLast(4);
-ll.RemoveFirst();
-ll.RemoveLast();
 ll.PrintList();
-console.log(ll);
+console.log(ll)
