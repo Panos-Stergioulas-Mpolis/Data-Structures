@@ -1,3 +1,5 @@
+'use-strict'
+
 class Node{
     constructor(value, next = null, prev = null){
         this.value = value;
