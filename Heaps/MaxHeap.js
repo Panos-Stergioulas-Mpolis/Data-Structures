@@ -1,24 +1,43 @@
-class Node{
-    constructor(value, leftC = null, rightC = null, parent = null){
-        this.leftC = leftC;
-        this.rightC = rightC;
-        this.parent = parent;
-        this.value = value;
-    }   
-}
+// left child: 2i
+// right child: 2i + 1 
+//parent: Math.floor(2i/2)
 
-
-class MinHeap{
+class MaxHeap{
     constructor(){
-        this.root = null;
         this.heap = [null];
-        this.size = 0;
     }
 
-    //Insert a value
     Insert(value){
-        if(this.size === 0){
-            this.root = new Node(value)
+        this.heap.push(value);
+        if(this.heap.length > 2){
+            let idx = this.heap.length - 1;
+            while(this.heap[idx] > this.heap[Math.floor(idx/2)]){
+                if(idx >= 1){
+                    let temp = this.heap[Math.floor(idx/2)];
+                    this.heap[Math.floor(idx/2)] = this.heap[idx];
+                    this.heap[idx] = temp;
+                    if(Math.floor(idx/2) > 1){
+                        idx = Math.floor(idx/2);
+                    }else{
+                        break;
+                    }
+                }
+            }
         }
     }
+
 }
+
+const mh = new MaxHeap();
+
+
+
+mh.Insert(4);
+mh.Insert(6);
+mh.Insert(8);
+mh.Insert(10);
+mh.Insert(5);
+mh.Insert(3);
+mh.Insert(16);
+mh.Insert(2);
+console.log(mh);
