@@ -4,6 +4,7 @@
 
 class MaxHeap{
     constructor(){
+        // index 0 will be null cause it helps to find the parent
         this.heap = [null];
     }
 
