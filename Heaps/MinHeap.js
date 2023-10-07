@@ -43,13 +43,13 @@ class MinHeap{
             let left = 2 * i;
             let right = 2 * i + 1;
             while(this.heap[i] >= this.heap[left] || this.heap[i] >= this.heap[right]){
-                if(this.heap[left] <= this.heap[right]){
+                if(this.heap[left] <= this.heap[right] || this.heap[right] === undefined){
                     let temp = this.heap[i];
                     this.heap[i] = this.heap[left];
                     this.heap[left] = temp;
                     i = 2 * i;
                 }
-                else{
+                else if(this.heap[right] < this.heap[left] || this.heap[left] === undefined){
                     let temp = this.heap[i];
                     this.heap[i] = this.heap[right];
                     this.heap[right] = temp;
@@ -57,7 +57,7 @@ class MinHeap{
                 }
                 left = 2 * i;
                 right = 2 * i + 1;
-                if(this.heap[left] === undefined || this.heap[right] === undefined){
+                if(this.heap[left] === undefined && this.heap[right] === undefined){
                     break;
                 }
             }
@@ -75,16 +75,4 @@ class MinHeap{
 
 const mh = new MinHeap();
 
-
-
-mh.Insert(4);
-mh.Insert(6);
-mh.Insert(8);
-mh.Insert(10);
-mh.Insert(5);
-mh.Insert(3);
-mh.Insert(16);
-mh.Insert(2);
-mh.Remove();
-mh.Remove();
 console.log(mh);
