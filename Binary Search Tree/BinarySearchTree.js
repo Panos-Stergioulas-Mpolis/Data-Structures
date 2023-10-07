@@ -44,12 +44,66 @@ class BinarySearchTree{
             }
         }
     }
+
+    // Remove(value){
+    //     let trav = this.root;
+    //     while(trav !== null){
+    //         if(trav.value === value){
+    //             if(trav.left === null && trav.right === null){
+    //                 trav = null;
+    //                 this.numOfNodes--;
+    //                 break;
+    //             }
+    //             else if(trav.left === null){
+    //                 trav.parent.right = trav.right;
+    //                 trav.right.parent = trav.parent;
+    //                 trav = null;
+    //                 this.numOfNodes--;
+    //             }
+    //             else if(trav.right === null){
+
+    //             }
+    //         }
+    //     }
+    // }
+
+    PreorderPrint(node){
+        if(node === null){
+            return;
+        }
+        console.log(node.value);
+        this.PreorderPrint(node.left);
+        this.PreorderPrint(node.right);
+    }
+
+    InorderPrint(node){
+        if(node === null){
+            return;
+        }
+        this.InorderPrint(node.left);
+        console.log(node.value);
+        this.InorderPrint(node.right);
+    }
+
+    PostorderPrint(node){
+        if(node === null){
+            return;
+        }
+        this.PostorderPrint(node.left);
+        this.PostorderPrint(node.right);
+        console.log(node.value);
+    }
 }
 
 const bst = new BinarySearchTree();
 
-bst.Insert(3);
-bst.Insert(4);
-bst.Insert(1);
-
-console.log(bst);
+bst.Insert(23);
+bst.Insert(2);
+bst.Insert(123);
+bst.Insert(12);
+bst.Insert(34);
+bst.Insert(64);
+bst.Insert(25);
+bst.Insert(86);
+bst.Insert(212);
+bst.PostorderPrint(bst.root);
