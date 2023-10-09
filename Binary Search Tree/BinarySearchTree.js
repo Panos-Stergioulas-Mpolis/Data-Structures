@@ -100,18 +100,73 @@ class BinarySearchTree{
         while(trav !== null){
             if(trav.value === value){
                 if(trav.left === null && trav.right === null){
+                    if(trav.parent.left === trav){
+                        trav.parent.left = null;
+                    }
+                    if(trav.parent.right === trav){
+                        trav.parent.right = null;
+                    }
                     trav = null;
                     this.numOfNodes--;
                     break;
                 }
                 else if(trav.left === null){
-                    trav.parent.right = trav.right;
-                    trav.right.parent = trav.parent;
-                    trav = null;
-                    this.numOfNodes--;
+                    let trav2 = trav.parent;
+                    if(trav2.right === trav){
+                        trav2.right = trav.right;
+                        trav.right.parent = trav2;
+                        trav = null;
+                        this.numOfNodes--;
+                        break;
+                    }
+                    else if(trav2.left === trav){
+                        trav2.left = trav.right;
+                        trav.right.parent = trav2;
+                        trav = null;
+                        this.numOfNodes--;
+                        break;
+                    }
+                    else if(trav.right === null){
+                        let trav2 = trav.parent;
+                        if(trav2.right === trav){
+                            trav2.right = trav.left;
+                            trav.left.parent = trav2;
+                            trav = null;
+                            this.numOfNodes--;
+                            break;
+                        }
+                        else if(trav2.left === trav){
+                            trav2.left = trav.left;
+                            trav.left.parent = trav2;
+                            trav = null;
+                            this.numOfNodes--;
+                            break;
+                        }
+                    }
+                    
                 }
-                else if(trav.right === null){
-
+                else{
+                    let temp = trav.left;
+                    while(temp.right !== null){
+                        temp = temp.right;
+                    }
+                    trav.value = temp.value;
+                    if(temp.parent.right === temp){
+                        temp.parent.right = null;
+                    }
+                    if(temp.parent.left === temp){
+                        temp.parent.left = null;
+                    }
+                    temp = null;
+                    this.numOfNodes--;
+                    break;
+                }
+            }else{
+                if(value <= trav.value){
+                    trav = trav.left;
+                }
+                else{
+                    trav = trav.right;
                 }
             }
         }
@@ -180,4 +235,8 @@ bst.Insert(64);
 bst.Insert(25);
 bst.Insert(86);
 bst.Insert(212);
+bst.Remove(12);
+bst.Remove(123);
+bst.Remove(23);
 bst.LevelorderPrint(bst.root);
+console.log("Nodes: " + bst.numOfNodes)
