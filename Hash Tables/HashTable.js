@@ -48,6 +48,28 @@ class HashTable{
         }
     }
 
+    removeItem = key =>{
+        const idx = hasFunction(key, this.table.length);
+        try{
+           
+            if(this.table[idx].length ===1){
+                this.table.splice(idx,1);
+            }
+            else{
+                for(let i = 0; i < this.table[idx].length; i++){
+                    if(this.table[idx][i][0] === key){
+                        delete this.table[idx].splice(i,1);
+                    }
+                }
+            }
+            this.numOfItems--;
+            
+        }
+        catch{
+            return `${key} does not exist.`;
+        }
+    }
+
     getItem = key =>{
         const idx = hasFunction(key, this.table.length);
         try{
